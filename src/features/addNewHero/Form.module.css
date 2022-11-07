@@ -1,0 +1,103 @@
+.formBox {
+  margin-top: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.title {
+  text-align: center;
+  font-size: 36px;
+  font-weight: lighter;
+}
+.title span {
+  font-weight: normal;
+}
+.formBox form {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+}
+.formBox form label {
+  font-size: 12px;
+  font-weight: 300;
+  margin-bottom: 4px;
+}
+.formBox form label span {
+  color: red;
+}
+.firstRow {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+.smallItem {
+  width: 250px;
+  height: 30px;
+  outline: none;
+  padding-left: 4px;
+  border: 1px solid rgb(131, 131, 131);
+}
+.formItem {
+  display: flex;
+  flex-direction: column;
+  margin-top: 24px;
+}
+.photoInput {
+  display: none;
+}
+.photoInputText {
+  height: 80px;
+  width: 100%;
+  padding: 34px;
+  border: 1px solid rgb(131, 131, 131);
+  text-align: center;
+  cursor: pointer;
+}
+.btnBox {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  margin-top: 24px;
+}
+
+.btn {
+  color: white;
+  outline: none;
+  border: none;
+  background-color: rgb(232, 170, 78);
+  width: 150px;
+  height: 40px;
+  transition: background-color 0.2s;
+}
+.btn:hover {
+  background-color: rgb(208, 154, 75);
+}
+
+@media screen and (max-width: 640px) {
+  .formBox form {
+    width: 400px;
+  }
+  .smallItem {
+    width: 120px;
+    height: 30px;
+    outline: none;
+    padding-left: 4px;
+    border: 1px solid rgb(131, 131, 131);
+  }
+  .photoInputText {
+    padding: 24px;
+  }
+}
+@media screen and (max-width: 470px) {
+  .formBox form {
+    width: 300px;
+  }
+  .photoInputText {
+    padding: 12px;
+  }
+}
