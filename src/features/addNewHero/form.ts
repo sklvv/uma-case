@@ -1,6 +1,11 @@
+import { heroesArr } from "@/index";
+import { capitalizeFirstLetter } from "@/shared/helpers/capitalizeFirstLetter";
+import getDate from "@/shared/helpers/getDate";
+import { Slider } from "../heroesSlider";
 import classes from "./Form.module.css";
 
-export function setupForm(element: HTMLElement) {
+export function Form(element: HTMLElement) {
+  // Иньектим разметку
   element.innerHTML = `
    <div class="${classes.formBox}">
       <h3 class="${classes.title}">ДОБАВЬ СВОЕГО <span>ГЕРОЯ</span></h3>
@@ -26,7 +31,7 @@ export function setupForm(element: HTMLElement) {
       </form>
     </div>
     `;
-
+  // Элементы и подписки на события
   const btn = document.querySelector<HTMLButtonElement>("#formBtn")!;
   btn.addEventListener("click", (e) => handleSubmit(e));
 
@@ -43,6 +48,8 @@ export function setupForm(element: HTMLElement) {
 
   const photoNode = document.querySelector<any>("#photo")!;
   photoNode.addEventListener("input", (e: any) => setFile(e));
+
+  let photoUrl = "";
 
   // const dropArea = document.querySelector<any>("#dropArea")!;
 
@@ -61,6 +68,12 @@ export function setupForm(element: HTMLElement) {
 
   function setFile(e: any) {
     photoNode.files = e.target.files;
+    const reader = new FileReader();
+
+    reader.addEventListener("load", () => {
+      photoUrl = reader.result as string;
+    });
+    reader.readAsDataURL(photoNode.files[0]);
   }
 
   function setName(e: any) {
@@ -73,11 +86,29 @@ export function setupForm(element: HTMLElement) {
 
   function handleSubmit(e: SubmitEvent | MouseEvent) {
     e.preventDefault();
+
+    // Проверка на заполненность формы
+
     if (titleNode.value.trim() && nameNode.value.trim() && photoNode.files) {
-      // sending form
-      titleNode.value = ""; // clearing all inputs
+      // Вместо отправки формы добавляем нового героя
+      // в стор ( вместо стора массив в корне )
+
+      heroesArr.push({
+        id: Date.now(),
+        name: capitalizeFirstLetter(nameNode.value),
+        title: capitalizeFirstLetter(titleNode.value),
+        imgUrl: photoUrl,
+        creationDate: getDate(new Date()),
+      });
+
+      // Очищаем форму
+
+      titleNode.value = "";
       nameNode.value = "";
-      photoNode.files = [];
+
+      // Вызываем перерисовку слайдера
+
+      Slider(document.querySelector<HTMLDivElement>("#slider")!, heroesArr);
     } else {
       alert("Введите все данные!");
     }

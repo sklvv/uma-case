@@ -1,2 +1,2 @@
 // PUBLIC API
-export { setupForm } from "./form";
+export { Form } from "./form";
